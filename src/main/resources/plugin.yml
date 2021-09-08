@@ -1,0 +1,10 @@
+name: BackHome
+version: '1.0'
+main: com.daxton.backhome.BackHome
+api-version: 1.13
+prefix: BackHome
+authors: [ s99889989 ]
+commands:
+  backhome:
+    description: Basic instructions.
+    aliases: bh
