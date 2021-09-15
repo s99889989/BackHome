@@ -2,15 +2,49 @@ package com.daxton.backhome.command;
 
 import com.daxton.backhome.BackHome;
 import com.daxton.backhome.config.LoadConfig;
+import com.daxton.backhome.manager.PlayerManger;
+import com.daxton.backhome.playerdata.PlayerData;
+import org.bukkit.Location;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
+import java.util.UUID;
+
 public class MainCommand implements CommandExecutor {
 
 	@Override
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args){
+		if(sender instanceof Player){
+			Player player = (Player) sender;
+			UUID uuid = player.getUniqueId();
+			//從Map中獲取PlayerData
+			PlayerData playerData = PlayerManger.playerDataMap.get(uuid);
+			if(args.length == 1){
+				if(args[0].equals("back")){
+					//回到死亡地點
+					playerData.toDeath();
+					player.sendMessage("回到死亡地點");
+				}
+			}
+			if(args.length == 2){
+				if(args[0].equals("sethome")){
+					Location location = player.getLocation();
+					//紀錄目前位置
+					playerData.setHome(args[1], location);
+					player.sendMessage("紀錄"+args[1]+"點");
+				}
+				if(args[0].equals("home")){
+					//回到紀錄的位置
+					playerData.home(args[1]);
+					player.sendMessage("回到記錄點"+args[1]);
+				}
+			}
+		}
+
+
+
 		//先檢查args的長度，如果沒有檢查你第一個args[0]如果是空的就會錯誤
 		if(args.length == 1){
 			if(args[0].equals("reload")){

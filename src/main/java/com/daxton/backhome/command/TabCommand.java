@@ -18,6 +18,9 @@ public class TabCommand implements TabCompleter {
 			//把一個單字加進回傳列表
 			commandList.add("test");
 			commandList.add("reload");
+			commandList.add("sethome");
+			commandList.add("home");
+			commandList.add("back");
 		}
 		//回傳單字列表
 		return commandList;
